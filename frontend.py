@@ -6,26 +6,20 @@ import uvicorn
 from fastapi import FastAPI  
 from app import analyze  
 
-# Initialize FastAPI inside Streamlit
 app = FastAPI()
 
 @app.get("/analyze")
 async def analyze_route(company: str):
     """Fetch news, analyze sentiment, and generate Hindi TTS."""
-    result = await analyze(company)
-    return result
+    return await analyze(company)
 
 def run_api():
     """Run FastAPI inside a thread."""
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
-# Run FastAPI in a background thread
 threading.Thread(target=run_api, daemon=True).start()
 
-# Streamlit UI
 st.title("📢 AI-Powered News Summarization & Sentiment Analysis")
-st.markdown("Enter a company name to fetch news, analyze sentiment, and generate Hindi TTS.")
-
 company_name = st.text_input("🔍 Enter Company Name", "")
 
 if st.button("Fetch News & Analyze"):
@@ -38,36 +32,16 @@ if st.button("Fetch News & Analyze"):
 
                 if response.status_code == 200:
                     result = response.json()
+                    for article in result.get("articles", []):
+                        st.write(f"**📰 {article['title']}**")
+                        st.write(f"📌 *Summary:* {article['summary']}")
+                        st.write(f"💡 *Sentiment:* {article['sentiment']}")
 
-                    if "error" in result:
-                        st.error(f"⚠️ {result['error']}")
-                    elif "articles" in result: 
-                        st.subheader("📜 News Analysis Report")
-                        for article in result["articles"]:
-                            st.write(f"**📰 {article['title']}**")
-                            st.write(f"📌 *Summary:* {article['summary']}")
-                            st.write(f"💡 *Sentiment:* {article['sentiment']}")
-                             
-                        if "audio_base64" in result and result["audio_base64"]:
-                            st.subheader("🔊 Hindi Audio Output")
-                            audio_bytes = base64.b64decode(result["audio_base64"])
-                            st.audio(audio_bytes, format="audio/mp3")
-                            st.download_button(
-                                label="Download Audio",
-                                data=audio_bytes,
-                                file_name="output.mp3",
-                                mime="audio/mp3"
-                            )
-                        else:
-                            st.warning("⚠️ No audio generated. TTS failed.")
-
-                    else:
-                        st.warning("⚠️ No articles found.")
+                    if result.get("audio_base64"):
+                        audio_bytes = base64.b64decode(result["audio_base64"])
+                        st.audio(audio_bytes, format="audio/mp3")
+                        st.download_button("Download Audio", audio_bytes, "output.mp3", "audio/mp3")
                 else:
                     st.error(f"⚠️ API Error: {response.text}")
-            except requests.exceptions.ConnectionError:
-                st.error("❌ Connection Error: Backend server is not running.")
-            except requests.exceptions.Timeout:
-                st.error("⏳ Timeout Error: The request took too long.")
             except requests.exceptions.RequestException as e:
                 st.error(f"⚠️ Failed to connect to API: {e}")

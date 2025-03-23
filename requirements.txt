@@ -1,24 +1,26 @@
+pip>=23.0.0
+setuptools>=67.0.0
+
 # 🌐 Web Frameworks
-fastapi  # Framework for building APIs with Python
-uvicorn  # ASGI server to run FastAPI applications
+fastapi==0.95.2      # API framework for building high-performance web applications
+uvicorn==0.23.2      # ASGI server to run FastAPI applications
 
 # 🎨 Web UI Framework
-streamlit  # Simple UI framework for interactive web applications
+streamlit==1.22.0    # UI framework for interactive web applications
 
 # 🔄 HTTP Requests & Environment Management
-requests  # Used to send API requests from the frontend
-httpx  # Async HTTP client used to fetch news articles from NewsAPI
-python-dotenv  # Loads environment variables from .env files
+requests==2.31.0     # For sending API requests
+httpx==0.24.1        # Async HTTP client for fetching news data
+python-dotenv==1.0.0 # Loads environment variables from .env files
 
 # 🧠 NLP & Text Processing
-transformers  # Hugging Face library for pre-trained models (text summarization)
-torch  # Required backend for running transformer models
-textblob  # Sentiment analysis and text processing library
-deep-translator  # Library for translating text (English → Hindi)
+transformers==4.30.2 # Pre-trained NLP models (text summarization)
+torch==2.0.1         # Required backend for transformers
+textblob==0.15.3     # Sentiment analysis library
+deep-translator==1.11.4 # Translation (English → Hindi)
 
 # 🔊 Text-to-Speech (TTS)
-gTTS  # Google Text-to-Speech library for generating Hindi speech
+gTTS==2.3.2          # Google TTS for Hindi speech
 
 # 🛠 Utilities & Logging
-pydantic  # Data validation for FastAPI endpoints
-loguru  # Advanced logging framework (alternative to built-in logging module)
+pydantic==1.10.12    # Data validation for FastAPI
