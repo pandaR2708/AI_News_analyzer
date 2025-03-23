@@ -1,0 +1,24 @@
+# 🌐 Web Frameworks
+fastapi  # Framework for building APIs with Python
+uvicorn  # ASGI server to run FastAPI applications
+
+# 🎨 Web UI Framework
+streamlit  # Simple UI framework for interactive web applications
+
+# 🔄 HTTP Requests & Environment Management
+requests  # Used to send API requests from the frontend
+httpx  # Async HTTP client used to fetch news articles from NewsAPI
+python-dotenv  # Loads environment variables from .env files
+
+# 🧠 NLP & Text Processing
+transformers  # Hugging Face library for pre-trained models (text summarization)
+torch  # Required backend for running transformer models
+textblob  # Sentiment analysis and text processing library
+deep-translator  # Library for translating text (English → Hindi)
+
+# 🔊 Text-to-Speech (TTS)
+gTTS  # Google Text-to-Speech library for generating Hindi speech
+
+# 🛠 Utilities & Logging
+pydantic  # Data validation for FastAPI endpoints
+loguru  # Advanced logging framework (alternative to built-in logging module)
