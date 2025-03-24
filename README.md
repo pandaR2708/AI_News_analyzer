@@ -23,7 +23,6 @@ This project fetches news articles based on a company name, generates summaries,
 ├── model.py        # Loads the Hugging Face summarization model
 ├── requirements.txt # Lists all dependencies
 ├── utils.py        # Utility functions (sentiment analysis, summarization, TTS)
-├── Dockerfile      # Optional: Containerization for deployment
 └── README.md       # Project documentation
 ```
 

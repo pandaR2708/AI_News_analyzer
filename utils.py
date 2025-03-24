@@ -38,15 +38,17 @@ async def generate_summary(text):
         return "Summary generation failed."
 
 def generate_tts(news_articles):
-    """Convert summarized articles to Hindi speech."""
+    """Convert summarized articles to Hindi speech and save as a file."""
     try:
         full_summary = " ".join([f"{a['title']}: {a['summary']} (Sentiment: {a['sentiment']})." for a in news_articles])
         translated_text = GoogleTranslator(source="en", target="hi").translate(full_summary)
         tts = gTTS(text=translated_text, lang="hi")
-        audio_buffer = io.BytesIO()
-        tts.write_to_fp(audio_buffer)
-        audio_buffer.seek(0)
-        return audio_buffer
+
+        # Save audio file
+        audio_path = "output.mp3"
+        tts.save(audio_path)
+
+        return audio_path  # Return file path
     except Exception as e:
         logging.error(f"❌ Error generating TTS: {e}")
         return None
